@@ -1,0 +1,32 @@
+Najat Alkhatri
+--------------------
+1) Created new java project, package name "EvaluationOne" with class name"Main.java". All Code inside this class.
+
+2) Just for orgnizing my code i used switch case and while loop as menu.
+
+3) Created (.txt)file "readThingsInsideThisFile.txt" and i wrote things inside it. The benefit of this file is, we can read everything inside it, and display it as
+   output in eclipse program. Also we can read things from any another file (.txt). This is the idea of option zero (0). Moreover, the steps of my code i follow is:
+  1- first enter the file name (.txt).
+  2- location of my file.
+  3- read everything inside file line by line.
+  4- display everything as output in eclipse.
+  5- close input stream.
+
+4) option (1) : you can exit from the program.
+
+5) option(2): Created another (.txt)file "searchWordFromThisFileIfFoundOrNo.txt", inside this file there is JSON. The idea of this code is if you enter any word and 
+   this word is equal to any data in json file , the output will appear "File contains this word". if not equal, the output will appear "File does not contain the word
+   entered". Next, the steps of my code i follow is:
+   1- enter any word.
+   2- will search input word from the location given, if found or no.
+   3- then will decide if found that word or no. if found the output will show "File contains this word". if not found the output will show "File does not contain the
+      word entered".
+
+6) If you enter any another number not mentioned in menu above, the output will appear "It is not an option, try again and choose a number from menu above".
+
+7) I used Handle Exception "Try and catch", if there is any error or something goes wrong. the output will appear "Error!!".
+
+
+
+
+  
