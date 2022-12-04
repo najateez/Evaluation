@@ -7,8 +7,12 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+
 
 import com.google.gson.Gson;
 
@@ -59,8 +63,15 @@ public class Main {
 				}case 2:{
 					System.out.println("(Search String can be more than one but they must all be unique even if user gives duplicate input).");
 					
+					ArrayList<String> theDuplicateString= new ArrayList<>();
+					Set<String> uniqueStringHS= new HashSet<>();
+					
+					boolean isExit=true;
+					
+					 while(isExit) {
 					System.out.println("Enter any word from your json in your file:"); //(.txt) file
 					String word = in.next();
+					uniqueStringHS.add(word);
 					
 					//will search input word from this location if found or no
 					Scanner in2 = new Scanner(new FileInputStream("C:\\Users\\Acer\\eclipse-workspace\\Evaluation\\searchWordFromThisFileIfFoundOrNo.txt"));
@@ -72,16 +83,32 @@ public class Main {
 						String wordInFile = in2.nextLine();
 						if (wordInFile.indexOf(word) != -1) {
 							found = true;
-
 						}
 					}
+					
+				//	int count =1;
+					
 					if (found) { 
 						System.out.println("File contains this word: " + word);
+						if(!theDuplicateString.contains(word)) {
+							 theDuplicateString.add(word);
+						 }
+					//	 System.out.println(theDuplicateString);
+					//	 System.out.println("Number of occurrences is: " + count++);
 					} else {
 						System.out.println("File does not contain the word entered.");
 					}
-
-					break;				
+					
+					System.out.println("press 0 to continue or press 1 to exit");
+					int num=in.nextInt();
+					if(num==1) {
+						isExit=false;
+					}
+				}
+					 System.out.println("Output Report:");
+					 System.out.println(theDuplicateString);
+					 System.out.println("*******************************");
+					break;	
 				}default:{
 					System.out.println("It is not an option, try again and choose a number from menu above");
 					break;
