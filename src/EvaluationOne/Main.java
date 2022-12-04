@@ -33,6 +33,7 @@ public class Main {
 				System.out.println("0:Write response in a file.");
 				System.out.println("1:Exit");
 				System.out.println("2:Search from file a String which is user input.(Search String can be more than one but they must all be unique even if user gives duplicate input).");
+				System.out.println("3:Just another way solution of case(2)");
 				System.out.println("*******************************");
 				System.out.println("Enter a number from menu: ");
 				int choice=in.nextInt();
@@ -86,15 +87,12 @@ public class Main {
 						}
 					}
 					
-				//	int count =1;
-					
 					if (found) { 
 						System.out.println("File contains this word: " + word);
 						if(!theDuplicateString.contains(word)) {
 							 theDuplicateString.add(word);
 						 }
 					//	 System.out.println(theDuplicateString);
-					//	 System.out.println("Number of occurrences is: " + count++);
 					} else {
 						System.out.println("File does not contain the word entered.");
 					}
@@ -109,6 +107,47 @@ public class Main {
 					 System.out.println(theDuplicateString);
 					 System.out.println("*******************************");
 					break;	
+				}case 3:{
+                     System.out.println("Another way solution:-");
+					
+					ArrayList<String> theDuplicateString= new ArrayList<>();
+					Set<String> uniqueStringHS= new HashSet<>();
+					
+					System.out.println("How many word string do you want to enter"); //(.txt) file
+					int amtOfWord = in.nextInt();
+					
+					for(int i=0;i<amtOfWord;i++) {
+					System.out.println("Enter any word from your json in your file:"); //(.txt) file
+					String word = in.next();
+					uniqueStringHS.add(word);
+					
+					//will search input word from this location if found or no
+					Scanner in2 = new Scanner(new FileInputStream("C:\\Users\\Acer\\eclipse-workspace\\Evaluation\\searchWordFromThisFileIfFoundOrNo.txt"));
+					
+					boolean found = false;
+					
+					//here will decide if found that word or no
+					while (in2.hasNextLine()) { 
+						String wordInFile = in2.nextLine();
+						if (wordInFile.indexOf(word) != -1) {
+							found = true;
+						}
+					}
+					
+					if (found) { 
+						System.out.println("File contains this word: " + word);
+						if(!theDuplicateString.contains(word)) {
+							 theDuplicateString.add(word);
+						 }
+					//	 System.out.println(theDuplicateString);
+					} else {
+						System.out.println("File does not contain the word entered.");
+					}
+					}
+					 System.out.println("Output Report:");
+					 System.out.println(theDuplicateString);
+					 System.out.println("*******************************");
+					break;
 				}default:{
 					System.out.println("It is not an option, try again and choose a number from menu above");
 					break;
