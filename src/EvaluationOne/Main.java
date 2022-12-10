@@ -34,6 +34,7 @@ public class Main {
 				System.out.println("1:Exit");
 				System.out.println("2:Search from file a String which is user input.(Search String can be more than one but they must all be unique even if user gives duplicate input).");
 				System.out.println("3:Just another way solution of case(2)");
+				System.out.println("4:Ask user pdf or txt,then search a word in that file. When you find a word move it to new directory.");
 				System.out.println("*******************************");
 				System.out.println("Enter a number from menu: ");
 				int choice=in.nextInt();
@@ -150,7 +151,55 @@ public class Main {
 						// TODO: The code below 
 						generateReport(theDuplicateString);
 						break;
-					} default:{
+					}case 4:{
+						
+						System.out.println("Enter the name of file you want to search a word from it:");
+						String fileName=in.next(); 
+						
+						ArrayList<String> theDuplicateStringFromPdf= new ArrayList<>();
+						Set<String> uniqueStringFromPdf= new HashSet<>();
+						
+						boolean isExit=true;
+						
+						 while(isExit) {
+						System.out.println("Enter any word from your file:");
+						String wordFromPdf = in.next();
+						uniqueStringFromPdf.add(wordFromPdf);
+						
+						
+						//will search input word from this location if found or no
+						Scanner in2 = new Scanner(new FileInputStream("C://Users//Acer//eclipse-workspace//Evaluation//" + fileName));
+						
+						boolean found = false;
+						
+						//here will decide if found that word or no
+						while (in2.hasNextLine()) { 
+							String wordInFile = in2.nextLine();
+							if (wordInFile.indexOf(wordFromPdf) != -1) {
+								found = true;
+							}
+						}
+
+					//	int count =1;
+
+						if (found) { 
+							System.out.println("File contains this word: " + wordFromPdf);
+							if(theDuplicateStringFromPdf.contains(wordFromPdf)) {
+								 theDuplicateStringFromPdf.add(wordFromPdf);
+							 }
+						} else {
+							System.out.println("File does not contain the word entered.");
+						}
+						
+						System.out.println("press 0 to continue or press 1 to exit");
+						int num=in.nextInt();
+						if(num==1) {
+							isExit=false;
+						}
+					}
+						 generateReportForPdf(theDuplicateStringFromPdf);
+						break;						
+					}default:{
 						System.out.println("It is not an option, try again and choose a number from menu above");
 						break;
 					} 
@@ -164,6 +213,11 @@ public class Main {
 	private static void generateReport(ArrayList<String> data) {
 		System.out.println("Output Report:");
 		System.out.println(data);
+		System.out.println("*******************************");
+	}
+	private static void generateReportForPdf(ArrayList<String> data1) {
+		System.out.println("Output Report:");
+		System.out.println(data1);
 		System.out.println("*******************************");
 	}
 }
