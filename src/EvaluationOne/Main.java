@@ -9,10 +9,12 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Set;
 
-
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -158,10 +160,14 @@ public class Main {
 						break;
 					}case 4:{
 						
-						// i download for it to work fine: pdfbox.jar and fontbox.jar.
+						// i download for it to work fine: pdfbox.jar and fontbox.jar and commons-logging.jar.
 						//fontbox from this website: https://repo1.maven.org/maven2/org/apache/pdfbox/fontbox/2.0.2/
 						readUsingPdfBox();
 						break;						
+					}case 5:{
+						
+						
+						break;
 					}default:{
 						System.out.println("It is not an option, try again and choose a number from menu above");
 						break;
@@ -186,20 +192,33 @@ public class Main {
 	
 	//Reading from pdf file
 	public static void readUsingPdfBox() throws IOException {
-	    System.out.println("Enter File You Want to Use");
-	    Scanner scanner = new Scanner(System.in);
-	    String fileToUse = scanner.next();
-	    PDDocument pdDocument = PDDocument.load(new File(System.getProperty("user.dir") + "\\" + fileToUse + ".pdf"));
+		
+		Scanner scanner = new Scanner(System.in);
+		
+	    System.out.println("Enter any PDF File you want to search word from it:");
+	    String pdfFileName = scanner.next();
+	    
+	                                                        //pdf file path
+	    PDDocument pdDocument = PDDocument.load(new File(System.getProperty("user.dir") + "\\" + pdfFileName + ".pdf")); //this code (path) used, to work for all computers. instead of you given folder path.
 	    PDFTextStripper textStripper = new PDFTextStripper();
 	    String textFromFile = textStripper.getText(pdDocument);
-	    System.out.println("Enter Word You Want to Search\n");
-	    Scanner scannerObject = new Scanner(System.in);
-	    String wordToSearch = scannerObject.next();
+	    
+	    System.out.println("Enter Word You Want to Search: \n");
+	   
+	    String wordToSearch = scanner.next();
+	    
 	    if(textFromFile.contains(wordToSearch)){
 	        System.out.println(wordToSearch + " found!!");
+	        // if word found from pdf file move that pdf file to another directory
+	       File fileMove= new File("C:\\Users\\Acer\\eclipse-workspace\\Evaluation\\"+ pdfFileName + ".pdf");
+	       File filePlace= new File("C:\\Users\\Acer\\eclipse-workspace\\NajatJavaProjectTwo\\"+ pdfFileName +".pdf");
+	       
+	       Files.copy(fileMove.toPath(), filePlace.toPath(), StandardCopyOption.REPLACE_EXISTING);
+	       System.out.println("This PDF File moved to another directory successfully!.");
 	    } else {
 	        System.out.println(wordToSearch + " Not found");
 	    }
 	    pdDocument.close();
 	}
+	
 }
