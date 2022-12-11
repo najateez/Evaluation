@@ -1,7 +1,9 @@
 package EvaluationOne;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -9,6 +11,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import java.util.Set;
+
+
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -153,51 +158,9 @@ public class Main {
 						break;
 					}case 4:{
 						
-						System.out.println("Enter the name of file you want to search a word from it:");
-						String fileName=in.next(); 
-						
-						ArrayList<String> theDuplicateStringFromPdf= new ArrayList<>();
-						Set<String> uniqueStringFromPdf= new HashSet<>();
-						
-						boolean isExit=true;
-						
-						 while(isExit) {
-						System.out.println("Enter any word from your file:");
-						String wordFromPdf = in.next();
-						uniqueStringFromPdf.add(wordFromPdf);
-						
-						
-						//will search input word from this location if found or no
-						Scanner in2 = new Scanner(new FileInputStream("C://Users//Acer//eclipse-workspace//Evaluation//" + fileName));
-						
-						boolean found = false;
-						
-						//here will decide if found that word or no
-						while (in2.hasNextLine()) { 
-							String wordInFile = in2.nextLine();
-							if (wordInFile.indexOf(wordFromPdf) != -1) {
-								found = true;
-							}
-						}
-
-					//	int count =1;
-
-						if (found) { 
-							System.out.println("File contains this word: " + wordFromPdf);
-							if(theDuplicateStringFromPdf.contains(wordFromPdf)) {
-								 theDuplicateStringFromPdf.add(wordFromPdf);
-							 }
-						} else {
-							System.out.println("File does not contain the word entered.");
-						}
-						
-						System.out.println("press 0 to continue or press 1 to exit");
-						int num=in.nextInt();
-						if(num==1) {
-							isExit=false;
-						}
-					}
-						 generateReportForPdf(theDuplicateStringFromPdf);
+						// i download for it to work fine: pdfbox.jar and fontbox.jar.
+						//fontbox from this website: https://repo1.maven.org/maven2/org/apache/pdfbox/fontbox/2.0.2/
+						readUsingPdfBox();
 						break;						
 					}default:{
 						System.out.println("It is not an option, try again and choose a number from menu above");
@@ -219,5 +182,24 @@ public class Main {
 		System.out.println("Output Report:");
 		System.out.println(data1);
 		System.out.println("*******************************");
+	}
+	
+	//Reading from pdf file
+	public static void readUsingPdfBox() throws IOException {
+	    System.out.println("Enter File You Want to Use");
+	    Scanner scanner = new Scanner(System.in);
+	    String fileToUse = scanner.next();
+	    PDDocument pdDocument = PDDocument.load(new File(System.getProperty("user.dir") + "\\" + fileToUse + ".pdf"));
+	    PDFTextStripper textStripper = new PDFTextStripper();
+	    String textFromFile = textStripper.getText(pdDocument);
+	    System.out.println("Enter Word You Want to Search\n");
+	    Scanner scannerObject = new Scanner(System.in);
+	    String wordToSearch = scannerObject.next();
+	    if(textFromFile.contains(wordToSearch)){
+	        System.out.println(wordToSearch + " found!!");
+	    } else {
+	        System.out.println(wordToSearch + " Not found");
+	    }
+	    pdDocument.close();
 	}
 }

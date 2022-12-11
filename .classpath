@@ -7,5 +7,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Acer/Downloads/gson-2.6.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Acer/Downloads/pdfbox-2.0.27.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Acer/Downloads/commons-logging-1.2/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Acer/Downloads/fontbox-2.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
